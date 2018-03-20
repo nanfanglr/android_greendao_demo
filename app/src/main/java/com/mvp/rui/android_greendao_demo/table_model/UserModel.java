@@ -1,8 +1,8 @@
 package com.mvp.rui.android_greendao_demo.table_model;
 
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
 
 /**
  * Created by 0200030 on 2018/3/20.
@@ -10,18 +10,21 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class UserModel {
     public static final long serialVersionUID = 0x11006;
+
     @Id
     private Long id;
 
     private String name;
 
+    private String gender;
+
     private int age;
 
-
-    @Generated(hash = 1942278017)
-    public UserModel(Long id, String name, int age) {
+    @Generated(hash = 1599534224)
+    public UserModel(Long id, String name, String gender, int age) {
         this.id = id;
         this.name = name;
+        this.gender = gender;
         this.age = age;
     }
 
@@ -29,14 +32,16 @@ public class UserModel {
     public UserModel() {
     }
 
-
-    public Long getId() {
-        return id;
+    public String getGender() {
+        return gender;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
+
+
+
 
     public String getName() {
         return name;
@@ -52,5 +57,13 @@ public class UserModel {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
