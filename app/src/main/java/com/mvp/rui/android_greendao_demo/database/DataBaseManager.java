@@ -15,7 +15,8 @@ public class DataBaseManager {
     /**
      * A flag to show how easily you can switch from standard SQLite to the encrypted SQLCipher.
      */
-    private static String DB_NAME = "greendao.db";
+    public static final String DB_NAME = "greendao.db";
+    public static final boolean ENCRYPTED = false;
     private static DataBaseManager mDataBaseManager;
 
     private DaoSession daoSession;
@@ -30,20 +31,20 @@ public class DataBaseManager {
     }
 
 
-    public static DataBaseManager get(Context context) {
-        return get(context.getApplicationContext());
-    }
-
-    public static DataBaseManager get(Application application) {
-        if (mDataBaseManager == null) {
-            return create(application);
-        }
-        return get();
-    }
-
-    private static DataBaseManager get() {
-        return mDataBaseManager;
-    }
+//    public static DataBaseManager get(Context context) {
+//        return get(context.getApplicationContext());
+//    }
+//
+//    public static DataBaseManager get(Application application) {
+//        if (mDataBaseManager == null) {
+//            return create(application);
+//        }
+//        return get();
+//    }
+//
+//    private static DataBaseManager get() {
+//        return mDataBaseManager;
+//    }
 
 
     public static DaoSession getDaoSession() {
@@ -63,9 +64,10 @@ public class DataBaseManager {
 
     public void init(Application application) {
 
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(application, DB_NAME);
+        DevOpenHelper helper = new DevOpenHelper(application, DB_NAME);
         Database db = helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
+        
     }
 
 

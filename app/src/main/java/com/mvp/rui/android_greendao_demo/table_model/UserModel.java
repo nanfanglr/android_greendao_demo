@@ -41,8 +41,6 @@ public class UserModel {
     }
 
 
-
-
     public String getName() {
         return name;
     }
@@ -65,5 +63,15 @@ public class UserModel {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", age=" + age +
+                '}';
     }
 }
