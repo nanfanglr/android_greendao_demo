@@ -2,7 +2,6 @@ package com.mvp.rui.android_greendao_demo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,38 +41,28 @@ public class MainActivity extends AppCompatActivity {
         userModelDao = daoSession.getUserModelDao();
         tvQueryContent = findViewById(R.id.tv_query_content);
 
-        findViewById(R.id.tv_add).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isAdd) {
+        findViewById(R.id.tv_add).setOnClickListener(
+                view -> {
+                    if (!isAdd) {
 //                addSingle();
-                    addList();
-                }
+                        addList();
+                    }
 
-            }
-        });
+                });
 
-        findViewById(R.id.tv_query).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                queryAll();
+        findViewById(R.id.tv_query).setOnClickListener(
+                view -> {
+                    queryAll();
 //                queryByCondition(30, "female");
-            }
-        });
+                });
 
-        findViewById(R.id.tv_update).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                update(30, "female");
-            }
-        });
+        findViewById(R.id.tv_update).setOnClickListener(
+                view ->
+                        update(30, "female"));
 
-        findViewById(R.id.tv_delete).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                delete(30, "female");
-            }
-        });
+        findViewById(R.id.tv_delete).setOnClickListener(
+                view ->
+                        delete(30, "female"));
     }
 
     /**
@@ -89,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(new Action1<UserModel>() {
                     @Override
                     public void call(UserModel userModel) {
-                        Toast.makeText(MainActivity.this, "数据插入成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this
+                                , "数据插入成功", Toast.LENGTH_SHORT).show();
                     }
                 })
         ;
@@ -131,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(userModels -> {
                     isAdd = true;
-                    Toast.makeText(MainActivity.this, "数据插入成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this
+                            , "数据插入成功", Toast.LENGTH_SHORT).show();
                 });
 
     }
@@ -182,13 +173,13 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .toList()
                 .flatMap(userModels -> {
-                    //这种方式，会将数据库没有的数据插入，而已有数据将本更新，这个是通过id主键进行判断的
+                    //这种方式，会将数据库没有的数据插入，而已有数据将会更新，这个是通过id主键进行判断的
                     return userModelDao.rx().insertOrReplaceInTx(userModels);
                 })
 //                .flatMap(new Func1<List<UserModel>, Observable<Iterable<UserModel>>>() {
 //                    @Override
 //                    public Observable<Iterable<UserModel>> call(List<UserModel> userModels) {
-                //这种方式，只能更新数据库存在的对象
+                //这种方式，只能更新数据库存在的数据
 //                        return userModelDao.rx().updateInTx(userModels);
 //                    }
 //                })
