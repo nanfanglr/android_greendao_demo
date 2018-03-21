@@ -21,17 +21,17 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 /**
- * 一个greendao的框架项目
+ * 一个结合RxJava1.x与greendao的框架项目
  */
 public class MainActivity extends AppCompatActivity {
 
-    DaoSession daoSession;
-    UserModelDao userModelDao;
-    TextView tvQueryContent;
+    private DaoSession daoSession;
+    private UserModelDao userModelDao;
+    private TextView tvQueryContent;
     /**
      * 第二次数据不再添加
      */
-    boolean isAdd;
+    private boolean isAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,17 +200,33 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * 删除，先查询然后删除，
+     * 或则知道主键id直接删除 userModelDao.deleteByKeyInTx(key);
+     *
+     * @param age
+     * @param gender
+     */
     private void delete(int age, String gender) {
         getqueryOB(age, gender)
                 .toList()//这个没有必要
-                .flatMap(userModels -> userModelDao.rx().deleteInTx(userModels))
+                .flatMap(userModels -> {
+                    //
+                    return userModelDao.rx().deleteInTx(userModels);
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aVoid ->
                         Toast.makeText(MainActivity.this
                                 , "删除成功", Toast.LENGTH_SHORT).show());
     }
 
+    /**
+     * 查询公共的代码
+     *
+     * @param age
+     * @param gender
+     * @return
+     */
     private Observable<UserModel> getqueryOB(int age, String gender) {
         daoSession.clear();//多次查询，需要清除缓存，这个是清除全部缓存
         //userModelDao.detachAll();//多次查询，需要清除缓存，这个是清除userModelDao缓存

@@ -29,6 +29,7 @@ public class DevOpenHelper extends DaoMaster.OpenHelper {
 
     @Override
     public void onUpgrade(Database db, int oldVersion, int newVersion) {
+        //升级必须重写此方法，处理升级相关业务，不然的话升级就会重新重建表，无法保存以前的数据
 //            super.onUpgrade(db, oldVersion, newVersion);
         Log.i("greenDAO", "migrating schema from version " + oldVersion + " to " + newVersion);
         for (int migrateVersion = oldVersion + 1; migrateVersion <= newVersion; migrateVersion++) {
@@ -37,9 +38,9 @@ public class DevOpenHelper extends DaoMaster.OpenHelper {
                         db.execSQL("ALTER TABLE INHABITANT ADD COLUMN 'GENDER' INTEGER NOT NULL DEFAULT '0';");
                         break;*/
                 case 2:
-                    db.execSQL("ALTER TABLE REPORT_INFO ADD COLUMN 'PATROL_IN_TIME' TEXT;");
-                    db.execSQL("ALTER TABLE REPORT_INFO ADD COLUMN 'PATROL_OUT_TIME' TEXT;");
-                    db.execSQL("ALTER TABLE REPORT_INFO ADD COLUMN 'STAR' INTEGER NOT NULL DEFAULT '0';");
+                    db.execSQL("ALTER TABLE USER_MODEL ADD COLUMN 'REMARK' TEXT;");
+//                    db.execSQL("ALTER TABLE REPORT_INFO ADD COLUMN 'PATROL_OUT_TIME' TEXT;");
+//                    db.execSQL("ALTER TABLE REPORT_INFO ADD COLUMN 'STAR' INTEGER NOT NULL DEFAULT '0';");
                     break;
             }
         }
