@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.mvp.rui.android_greendao_demo"
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -24,26 +24,26 @@ android {
     }
 
 }
-
+//数据库版本号，必须设置
 greendao {
     schemaVersion 2
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
-     // add greendao library
+    // add greendao library
     implementation 'org.greenrobot:greendao:3.2.2'
 
-    // add rxjava library
-    compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.2.9'
+    // add rxjava library，目前greendao只支持rxjava1.x的版本
+    implementation 'com.jakewharton.rxbinding:rxbinding:1.0.1'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'io.reactivex:rxjava:1.2.9'
 
     //facebook出品的调试神器，本项目中主要用来调试数据库操作
-    compile 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho:1.5.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
